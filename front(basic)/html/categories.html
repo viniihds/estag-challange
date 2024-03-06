@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/style.css">
+    <title>Suite Store</title>
+</head>
+<body>
+    <header class="header">
+    </header>
+    <nav class="nav">
+        <ul class="ul_nav">
+            <li class="title">
+                <a href="./index.html">Suite Store</a>
+            </li>
+            <li class="links_nav">
+                <a href="./products.html">Products</a>
+            </li>
+            <li class="links_nav">
+                <a href="./categories.html">Categories</a>
+            </li>
+            <li class="links_nav">
+                <a href="./history.html">History</a>
+            </li>
+        </ul>
+    </nav>
+    <main>
+        <div class="gridArea1">
+            <div class="form">
+                <form id="category-form">
+                    <div class="secondaryselects">
+                        <input id="category-name-input" name="name" class="secondaryselect1" type="text" placeholder="Category Name">
+                        <input id="category-tax-input" name="tax" class="secondaryselect1" style="margin-left: 10px;" type="number" min="0" placeholder="Tax">
+                    </div>
+                    <div>
+                        <button id="btn-add-category"  class="btngridArea1" type="submit" onclick="addNewCategory()">Add Category</button>
+                    </div>        
+                </form>
+            </div>
+        </div>
+        
+        <div class="gridArea2">   
+            <table>
+                <thead>
+                    <td class="tablemainitem">Code</td>
+                    <td>Category</td>
+                    <td>Tax</td>
+                </thead>
+                <tbody id="list-categories">
+                    
+                </tbody>
+            </table>        
+        </main>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+
+        <script src="../js/categories.js"></script>
+        
+    </body>
+</html>
+    

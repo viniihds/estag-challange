@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/style.css">
+    <title>Suite Store</title>
+</head>
+
+<body>
+    <header class="header">
+    </header>
+    <nav class="nav">
+        <ul class="ul_nav">
+            <li class="title">
+                <a href="./index.html">Suite Store</a>
+            </li>
+            <li class="links_nav">
+                <a href="./products.html">Products</a>
+            </li>
+            <li class="links_nav">
+                <a href="./categories.html">Categories</a>
+            </li>
+            <li class="links_nav">
+                <a href="./history.html">History</a>
+            </li>
+        </ul>
+    </nav>
+    <main>
+        <div class="gridArea1">
+            <form class="product-form" id="product-form">
+                <div>
+                    <select class="mainselect" id="input-product-category" name="category">
+                        <option value="0" disabled>Category</option>
+                    </select>
+                </div>
+                <div class="secondaryselects">
+                    <input id="input-product-name" class="secondaryselect1" type="text" placeholder="Product Name" name="name">
+                    <input id="input-product-price" class="secondaryselect2" type="number" min=1  placeholder="Unit Price" name="price">
+                    <input id="input-product-amount" type="number" class="secondaryselect2" min=1 step="1" placeholder="Amount" name="amount">
+                </div>
+                <div>
+                    <button id="btn-add-product" onclick="addNewProduct()" type="submit" class="btngridArea1">Add Product</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="gridArea2">
+            <table>
+                <thead>
+                    <td class="tablemainitem">Code</td>
+                    <td>Product</td>
+                    <td>Amount</td>
+                    <td>Unit Price</td>
+                    <td>Category</td>
+                    <td>Tax</td>
+                </thead>
+                <tbody id="list-products">
+                </tbody>
+            </table>
+    </main>
+
+</body>
+<script src="../js/products.js"></script>
+</html>

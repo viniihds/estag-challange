@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/style.css">
+    <title>Suite Store</title>
+</head>
+
+<body>
+    <header class="header">
+    </header>
+    <nav class="nav">
+        <ul class="ul_nav">
+            <li class="title">
+                <a href="./index.html">Suite Store</a>
+            </li>
+            <li class="links_nav">
+                <a href="./products.html">Products</a>
+            </li>
+            <li class="links_nav">
+                <a href="./categories.html">Categories</a>
+            </li>
+            <li class="links_nav">
+                <a href="./history.html">History</a>
+            </li>
+        </ul>
+    </nav>
+    <main>
+        <div class="gridArea1">
+            <form onsubmit="addProductToCart(event)" class="form" id="add-product-cart">
+                <div>
+                    <select onchange="changeValues()"  class="mainselect" name="" id="input-cart-product">
+                        <option value="0" disabled>Product</option>
+                    </select>
+                </div>
+                <div class="secondaryselects">
+                    <input class="secondaryselect1" id="input-cart-amount" type="number" min="1" step="1" placeholder="Amount">
+                    <input class="secondaryselect2" id="input-cart-tax" type="text" placeholder="Tax" disabled>
+                    <input class="secondaryselect2" id="input-cart-price" type="text" placeholder="Price" disabled>
+                </div>
+                <div>
+                    <input class="btngridArea1" id="btn-add-cart" type="submit" value="Add Product">
+                </div>
+            </form>
+        </div>
+
+        <div class="gridArea2">
+            <table>
+                <thead>
+                    <td class="tablemainitem">Product</td>
+                    <td>Unit price</td>
+                    <td>Product Tax</td>
+                    <td>Amount</td>
+                    <td>Total</td>
+                </thead>
+                <tbody id="list-cart">
+                </tbody>
+            </table>
+            <div id="total-prices" class="prices">
+
+            </div>
+            <div class="finishsale">
+                <div>
+                    <div class="buttons">
+                        <button onclick="cancelCart()" id="btn-cancel-cart" class="btncancel">Cancel</button>
+                        <button id="btn-finish-cart" class="btnfinish" onclick="finishCart()">Finish</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <script src="../js/index.js"></script>
+</body>
+
+</html>
