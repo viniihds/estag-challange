@@ -1,7 +1,7 @@
 <?php
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, DELETE');
-header("Access-Control-Allow-Headers: X-Requested-With");
+header("Access-Control-Allow-Headers: X-Requested-With, Content-Type");
 
 require_once "../services/categoriesService.php";
 
