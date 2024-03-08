@@ -6,8 +6,8 @@ function CategoriesComponent() {
     const [name, setName] = useState("")
     const [tax, setTax] = useState("")
     useEffect(() => {
-        async function fetchCategories(){
-            const res = await fetch(url) 
+        async function fetchCategories() {
+            const res = await fetch(url)
             const data = await res.json()
             setCategories(data);
         }
@@ -35,14 +35,15 @@ function CategoriesComponent() {
         setPrice("")
 
     }
-    function deleteCategory(code){
-        fetch(`http://localhost/routes/categories.php?code=${code}`,{
+    function deleteCategory(code) {
+        fetch(`http://localhost/routes/categories.php?code=${code}`, {
             method: "DELETE"
         }).then((result) => {
             result.json().then((res) => {
-                
+
             })
-        window.location.reload()})
+            window.location.reload()
+        })
     }
 
     return (
@@ -55,7 +56,7 @@ function CategoriesComponent() {
                                 <label htmlFor="name"></label>
                                 <input id="category-name-input" name="name" className="secondaryselect1" type="text" placeholder="Category Name" value={name} onChange={(e) => setName(e.target.value)} />
                                 <label htmlFor="tax"></label>
-                                <input id="category-tax-input" name="tax" className="secondaryselect1" style={{marginLeft: "10px"}} type="number" min={0} placeholder="Tax" value={tax} onChange={(e) => setTax(e.target.value)} />
+                                <input id="category-tax-input" name="tax" className="secondaryselect1" style={{ marginLeft: "10px" }} type="number" min={0} placeholder="Tax" value={tax} onChange={(e) => setTax(e.target.value)} />
                             </div>
                             <div>
                                 <input type="submit" className="btngridArea1" value={"Add Category"} />
@@ -64,18 +65,18 @@ function CategoriesComponent() {
                     </div>
                 </div>
                 <div className="gridArea2">
-                        {categories.map((category) => (
-                            <div className="divitems" key={category.code}>
-                                <div>Code: {category.code}</div>
-                                <div>Name: {category.name}</div>
-                                <div>Tax: {category.tax}</div>
-                                <div><button onClick={() => deleteCategory(category.code)} className="btnalternative">Delete</button></div>
-                            </div>
-                        ))}
+                    {categories.map((category) => (
+                        <div className="divitems" key={category.code}>
+                            <div>Code: {category.code}</div>
+                            <div>Name: {category.name}</div>
+                            <div>Tax: {category.tax}%</div>
+                            <div><button onClick={() => deleteCategory(category.code)} className="btnalternative">Delete</button></div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
-        
+
     )
 }
 export default CategoriesComponent

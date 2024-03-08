@@ -72,53 +72,53 @@ async function addProductToCart(e){
         inputTax.value = ""
         inputPrice.value = ""
         inputAmount.value = ""
-        showCartProducts()
+        // showCartProducts()
     }
 }
-function showCartProducts(){
-    let cartList = loadCart()
-    console.log(cartList)
-    newList = ""
-    totalPriceCart = 0
-    totalTaxCart = 0
-    cartList.forEach((cartproduct, index) =>{
-        console.log(cartproduct)
-        newList += `
-        <tr>
-        <td>${cartproduct.product.name}</td>
-        <td>${cartproduct.product.price}</td>
-        <td>${(cartproduct.product.price * (cartproduct.product.tax_category / 100)).toFixed(2)}</td>
-        <td>${cartproduct.amount}</td>
-        <td>${(cartproduct.amount * cartproduct.product.price + (cartproduct.amount * cartproduct.product.price * (cartproduct.product.tax_category / 100))).toFixed(2)}</td>
-        <td><button  class="btnalternative" onclick="removeProductCart(${index})">Delete</button></td>
-        </tr>
-        `
-        totalPriceCart += cartproduct.amount * cartproduct.product.price + (cartproduct.amount * cartproduct.product.price * (cartproduct.product.tax_category / 100))
-        totalTaxCart += cartproduct.product.price * cartproduct.amount *(cartproduct.product.tax_category / 100)
-    })
-    cartProductsList.innerHTML = newList
-    totalPrices.innerHTML = `
-        <div>
-            <p><p class="tax_total">Tax:</p> $${(totalTaxCart).toFixed(2)}</p>
-        </div>
-        <div>
-            <p><p class="tax_total">Total:</p> $${(totalPriceCart).toFixed(2)}</p>
-        </div>
-    `
-}
+// function showCartProducts(){
+//     let cartList = loadCart()
+//     console.log(cartList)
+//     newList = ""
+//     totalPriceCart = 0
+//     totalTaxCart = 0
+//     cartList.forEach((cartproduct, index) =>{
+//         console.log(cartproduct)
+//         newList += `
+//         <tr>
+//         <td>${cartproduct.product.name}</td>
+//         <td>${cartproduct.product.price}</td>
+//         <td>${(cartproduct.product.price * (cartproduct.product.tax_category / 100)).toFixed(2)}</td>
+//         <td>${cartproduct.amount}</td>
+//         <td>${(cartproduct.amount * cartproduct.product.price + (cartproduct.amount * cartproduct.product.price * (cartproduct.product.tax_category / 100))).toFixed(2)}</td>
+//         <td><button  class="btnalternative" onclick="removeProductCart(${index})">Delete</button></td>
+//         </tr>
+//         `
+//         totalPriceCart += cartproduct.amount * cartproduct.product.price + (cartproduct.amount * cartproduct.product.price * (cartproduct.product.tax_category / 100))
+//         totalTaxCart += cartproduct.product.price * cartproduct.amount *(cartproduct.product.tax_category / 100)
+//     })
+//     cartProductsList.innerHTML = newList
+//     totalPrices.innerHTML = `
+//         <div>
+//             <p><p class="tax_total">Tax:</p> $${(totalTaxCart).toFixed(2)}</p>
+//         </div>
+//         <div>
+//             <p><p class="tax_total">Total:</p> $${(totalPriceCart).toFixed(2)}</p>
+//         </div>
+//     `
+// }
 
 function removeProductCart(index){
     let cartList = loadCart()
     cartList.splice(index,1)
     localStorage.setItem("carts", JSON.stringify(cartList))
-    showCartProducts()
+    // showCartProducts()
 }
 
 function cancelCart(){
     let cartList = loadCart()
     cartList.splice(0)
     localStorage.setItem("carts", JSON.stringify(cartList))
-    showCartProducts()
+    // showCartProducts()
 }
 
 function finishCart(){
@@ -144,6 +144,6 @@ function finishCart(){
     }
 
 
-showCartProducts()
+// showCartProducts()
 selectProducts()
 loadCart()
