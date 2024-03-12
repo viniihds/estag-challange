@@ -1,14 +1,16 @@
 import "../assets/style.css"
 import { useState, useEffect } from "react"
-const urlProducts = "http://localhost/routes/products.php"
-const urlOrders = "http://localhost/routes/orders.php"
+let urlProducts = "http://localhost/routes/products.php"
+let urlOrders = "http://localhost/routes/orders.php"
 function IndexComponent() {
-    const [products, setProducts] = useState([])
-    const [product, setProduct] = useState([])
-    const [amount, setAmount] = useState([])
-    const [price, setPrice] = useState([])
-    const [tax, setTax] = useState([])
-    const [carts, setCarts] = useState([])
+    let [products, setProducts] = useState([])
+    let [product, setProduct] = useState(0)
+    let [amount, setAmount] = useState([])
+    let [price, setPrice] = useState([])
+    let [tax, setTax] = useState([])
+    let [carts, setCarts] = useState([])
+    let total = 0
+    let totaltax = 0
     useEffect(() => {
         async function fetchProducts() {
             const res = await fetch(urlProducts)
@@ -28,27 +30,27 @@ function IndexComponent() {
             setTax(selectedProduct.tax_category)
         }
     }
-    async function addToCart(e) {
-        e.preventDefault()
-        const res = await fetch(urlProducts)
-        const data = await res.json()
-        const products = data
-        const prod = product
-        const selectedProduct = products.find((p) => p.code == prod)
-        setCarts((previousItems) => [...previousItems, { code: selectedProduct.code, name: selectedProduct.name, tax: selectedProduct.tax_category, amount: amount, price: selectedProduct.price }])
-    }
+
     function deleteItem(index){
-        setCarts(carts.splice(index,1))
+        const cartList = loadCart()
+        cartList.splice(index,1)
+        localStorage.setItem("carts", JSON.stringify(cartList))
+        setCarts(JSON.parse(localStorage.getItem("carts")))
     }
+    
     function cancelCart(){
-        setCarts(carts.splice(0, 0))
+        const cartList = loadCart()
+        cartList.splice(0)
+        localStorage.setItem("carts", JSON.stringify(cartList))
+        setCarts(JSON.parse(localStorage.getItem("carts")))
     }
+    
 
     function finishCart(){
         const newCart = carts.map(item => {
             return {
                 amount : item.amount,
-                code : item.code
+                code : item.product.code
             }
         })
         try{
@@ -58,12 +60,62 @@ function IndexComponent() {
                 },
             )
             cancelCart()
+            window.location.reload()
         } catch(error){
             console.log(error.message)
         }
     }
-
-
+        function totalPrices(){
+            carts.forEach(cart => {
+                total += Math.round((cart.product.price * cart.amount + (cart.product.price * cart.amount * (cart.product.tax_category / 100)))*100)/100
+                totaltax += Math.round((cart.product.price * cart.amount * (cart.product.tax_category / 100))*100)/100
+            });
+        }
+            function loadCart() {
+                let dataCart = JSON.parse(localStorage.getItem('carts')) || []
+                return(dataCart)
+            }
+            loadCart()
+        async function addProductToCart(e){
+            const cartList = loadCart()
+            e.preventDefault()
+            const prods = products
+            const productName = product
+            const productSelected = prods.find((p) => p.code == productName)
+            if(amount <= 0){
+                return alert("Preencha um valor válido!")
+            }
+            localStorage.setItem("carts", JSON.stringify(cartList))
+            const cartProducts = JSON.parse(localStorage.getItem("carts"))
+            const prod = productSelected
+            for(const cartproduct of cartProducts){
+                if(cartproduct.product.name == prod.name){
+                    return alert("Produto já selecionado!")
+                }
+            }
+            if(amount.value == ""){
+                return alert("Informe a quantidade!")
+            }
+            if(prod.amount >= amount){
+                cartList.push({amount: amount, product: prod })
+                localStorage.setItem("carts", JSON.stringify(cartList))
+                alert("Product name: " + product + ", Product amount: " + amount + ", Product price: " + price + ", Product tax: " + tax)
+                product = 0
+                tax = ""
+                price = ""
+                amount = ""
+                setCarts(JSON.parse(localStorage.getItem("carts")))
+            }
+        }
+        useEffect(() => {
+            function showCarts(){
+                const data = JSON.parse(localStorage.getItem("carts")) || []
+                carts = data
+                setCarts(carts)
+            }
+            showCarts()
+        },[])
+    totalPrices()
     changeValues()
 
     return (
@@ -74,7 +126,7 @@ function IndexComponent() {
                         <select value={product} onChange={(e) => setProduct(e.target.value)} className="mainselect" id="input-product-category" name="products">
                             <option value={0} disabled>Product</option>
                             {products.map((product) => (
-                                <option key={product.code} value={product.code}>{product.name}</option>
+                                <option key={product.code} value={product.code}>{product.name} (Quantidade em estoque: {product.amount})</option>
                             ))}
                         </select>
 
@@ -87,27 +139,34 @@ function IndexComponent() {
                             <input id="product-amount-input" value={tax} onChange={() => setTax()} name="tax" className="secondaryselect2" style={{ marginLeft: "10px" }} type="number" placeholder="Tax" disabled />
                         </div>
                         <div>
-                            <input onClick={addToCart} type="submit" className="btngridArea1" value={"Add Product"} />
+                            <input onClick={addProductToCart} type="submit" className="btngridArea1" value={"Add Product"} />
                         </div>
                     </form>
                 </div>
                 <div className="gridArea2">
                     {carts.map((cart) => (
                             <div className="divitems" key={cart.index}>
-                                <div>{cart.name}</div>
-                                <div>Price: ${cart.price}</div>
+                                <div>{cart.product.name}</div>
+                                <div>Price: ${cart.product.price}</div>
                                 <div>Amount: {cart.amount}</div>
-                                <div>Tax: {cart.tax}%</div>
-                                <div>Total: ${cart.price * cart.amount + (cart.price * cart.amount * (cart.tax / 100))}</div>
+                                <div>Tax: {cart.product.tax_category}%</div>
+                                <div>Total: ${cart.product.price * cart.amount + (cart.product.price * cart.amount * (cart.product.tax_category / 100))}</div>
                                 <div><button onClick={deleteItem} className="btnalternative">Delete</button></div>
                             </div>
+                            
                     ))}
-                </div>
-                <div className="finishsale">
-                    <div>
-                        <div className="buttons">
-                            <button id="btn-cancel-cart" onClick={cancelCart} className="btncancel">Cancel</button>
-                            <button id="btn-finish-cart" onClick={finishCart} className="btnfinish" >Finish</button>
+                    <div className="divtotal">
+                        <div className="totalandtax">Total Tax: ${totaltax}</div>
+                        <div className="totalandtax">Total Price: ${total}</div>
+                    </div>
+                    <div className="divfinish">
+                        <div className="finishsale">
+                            <div>
+                                <div className="buttons">
+                                    <button id="btn-cancel-cart" onClick={cancelCart} className="btncancel">Cancel</button>
+                                    <button id="btn-finish-cart" onClick={finishCart} className="btnfinish" >Finish</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

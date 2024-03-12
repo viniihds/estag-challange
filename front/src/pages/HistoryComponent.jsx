@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react"
 import "../assets/style.css"
+import  OrderDetails  from "../components/OrderDetails"
 const urlOrders = "http://localhost/routes/orders.php"
 function HistoryComponent(){
     const [orders, setOrders] = useState([])
+    const [selectedOrder, setSelectedOrder] = useState(0)
+    async function fetchOrders() {
+        const res = await fetch(urlOrders)
+        const data = await res.json()
+        setOrders(data);
+        setSelectedOrder(data[0].code)
+    }
     useEffect(() => {
-        async function fetchOrders() {
-            const res = await fetch(urlOrders)
-            const data = await res.json()
-            setOrders(data);
-            console.log(data)
-        }
         fetchOrders()
     }, []);
     return(
@@ -21,25 +23,16 @@ function HistoryComponent(){
                                 <div>Code: {order.code}</div>
                                 <div>Tax: ${order.tax}</div>
                                 <div>Total: ${order.total}</div>
-                                <div><button className="btnalternative">Details</button></div>
-                            </div>
+                                <div><button onClick={() => setSelectedOrder(order.code)} {...window.scrollTo({top: 0, behavior:'smooth'})} className="btnalternative">Details</button></div>
+                            </div >
                         ))}
-                    </div> 
-                <div className="gridArea2">
-                    <table>
-                        <thead>
-                            <td className="tablemainitem">Product</td>
-                            <td>Unit price</td>
-                            <td>Product Tax</td>
-                            <td>Amount</td>
-                            <td>Total</td>
-                        </thead>
-                        <tbody id="sale-details">
-                        </tbody>
-                    </table>
-                    <div id="sale-details" className="prices">
                     </div>
-                </div>
+                    {
+                        selectedOrder != 0 &&
+                        <div className="gridArea2">
+                            <OrderDetails code={selectedOrder} />
+                        </div>
+                    }
             </div>
         </div>
     )

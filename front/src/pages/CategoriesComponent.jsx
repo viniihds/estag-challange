@@ -24,15 +24,19 @@ function CategoriesComponent() {
         const data = new FormData()
         data.append("name", name)
         data.append("tax", tax)
-        const res = await fetch(url, {
-            method: "POST",
-            body: data
-        })
-        window.location.reload()
-        const addedCategory = await res.json()
-        setCategories((prevCategories) => [...prevCategories, addedCategory])
-        setName("")
-        setPrice("")
+        if(tax <= 0){
+            return alert("Insira um valor válido!")
+        }else{
+            const res = await fetch(url, {
+                method: "POST",
+                body: data
+            })
+            window.location.reload()
+            const addedCategory = await res.json()
+            setCategories((prevCategories) => [...prevCategories, addedCategory])
+            setName("")
+            setPrice("")
+        }
 
     }
     function deleteCategory(code) {

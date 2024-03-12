@@ -31,17 +31,21 @@ function ProductsComponent() {
         data.append("amount", amount)
         data.append("price", price)
         data.append("category", category)
-        const res = await fetch(url, {
-            method: "POST",
-            body: data
-        })
-        window.location.reload()
-        const addedProduct = await res.json()
-        setProducts((prevProducts) => [...prevProducts, addedProduct])
-        setName("")
-        setCategory(0)
-        setAmount("")
-        setPrice("")
+        if(amount <= 0 || price <= 0 ){
+            return alert("Insira valores válidos")
+        } else{
+            const res = await fetch(url, {
+                method: "POST",
+                body: data
+            })
+            window.location.reload()
+            const addedProduct = await res.json()
+            setProducts((prevProducts) => [...prevProducts, addedProduct])
+            setName("")
+            setCategory(0)
+            setAmount("")
+            setPrice("")
+        }
 
     }
     function deleteProduct(code) {
