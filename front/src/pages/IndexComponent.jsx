@@ -1,5 +1,6 @@
 import "../assets/style.css"
 import { useState, useEffect } from "react"
+import NavComponent from "../components/NavComponent"
 let urlProducts = "http://localhost/routes/products.php"
 let urlOrders = "http://localhost/routes/orders.php"
 function IndexComponent() {
@@ -7,10 +8,11 @@ function IndexComponent() {
     let [product, setProduct] = useState(0)
     let [amount, setAmount] = useState([])
     let [price, setPrice] = useState([])
-    let [tax, setTax] = useState([])
+    let [tax, setTax] = useState([]) 
     let [carts, setCarts] = useState([])
     let total = 0
     let totaltax = 0
+
     useEffect(() => {
         async function fetchProducts() {
             const res = await fetch(urlProducts)
@@ -45,22 +47,33 @@ function IndexComponent() {
         setCarts(JSON.parse(localStorage.getItem("carts")))
     }
     
+    function loadUser(){
+        const user = JSON.parse(localStorage.getItem("users"))
+        return user
+    }
 
-    function finishCart(){
+    function finishCart(e){
+        e.preventDefault()
+        const {code} = loadUser()
         const newCart = carts.map(item => {
             return {
-                amount : item.amount,
-                code : item.product.code
+                amount : parseInt(item.amount),
+                code : item.product.code,
             }
         })
+        const data = {
+            user_code: code,
+            products: newCart
+        }
+        console.log(data)
         try{
             const res = fetch(urlOrders,{
                     method: 'POST',
-                    body: JSON.stringify(newCart)
+                    body: JSON.stringify(data)
                 },
             )
             cancelCart()
-            window.location.reload()
+            // window.location.reload()
         } catch(error){
             console.log(error.message)
         }
@@ -120,6 +133,7 @@ function IndexComponent() {
 
     return (
         <div>
+            <NavComponent />
             <div className="main">
                 <div className="gridArea1">
                     <form id="product-form">

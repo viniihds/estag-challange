@@ -1,21 +1,29 @@
 import { useState, useEffect } from "react"
 import "../assets/style.css"
 import  OrderDetails  from "../components/OrderDetails"
-const urlOrders = "http://localhost/routes/orders.php"
+import NavComponent from "../components/NavComponent"
 function HistoryComponent(){
     const [orders, setOrders] = useState([])
     const [selectedOrder, setSelectedOrder] = useState(0)
+
+
+    const {code} = JSON.parse(localStorage.getItem("users"))
+  
+
+    const urlOrders = `http://localhost/routes/orders.php?user_code=${code}`
     async function fetchOrders() {
         const res = await fetch(urlOrders)
         const data = await res.json()
         setOrders(data);
         setSelectedOrder(data[0].code)
     }
+    console.log(orders)
     useEffect(() => {
         fetchOrders()
     }, []);
     return(
         <div>
+            <NavComponent />
             <div className="main">
                 <div className="gridArea2" style={{border: "none"}}>
                         {orders.map((order) => (

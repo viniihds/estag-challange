@@ -1,5 +1,6 @@
 import "../assets/style.css"
 import { useState, useEffect } from "react"
+import NavComponent from "../components/NavComponent"
 const url = "http://localhost/routes/categories.php"
 function CategoriesComponent() {
     const [categories, setCategories] = useState([])
@@ -52,6 +53,7 @@ function CategoriesComponent() {
 
     return (
         <div>
+            <NavComponent />
             <div className="main">
                 <div className="gridArea1">
                     <div className="form">

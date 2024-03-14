@@ -17,6 +17,9 @@ function NavComponent() {
                     <li className="links_nav">
                         <Link className="links" to="/history">History</Link>
                     </li>
+                    <li className="links_nav">
+                        <Link className="links" to="/login">Logout</Link>
+                    </li>
                 </ul>
             </nav>
         </div>

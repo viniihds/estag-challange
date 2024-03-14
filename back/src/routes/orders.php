@@ -7,15 +7,19 @@ require_once '../services/ordersService.php';
 
 if($_SERVER["REQUEST_METHOD"] === "POST"){
     $data = json_decode(file_get_contents('php://input'), true);
-    createOrder($data);
+    ['products' => $order_items, 'user_code'=> $user_code] = $data; 
+    createOrder($order_items, $user_code);
 }
 if($_SERVER["REQUEST_METHOD"] === "GET"){
     if($_SERVER["QUERY_STRING"]){
-        $toGet = $_GET["code"];
-        $data_orders = GetOrderById($toGet);
-    }else{
-        $data_orders = readOrders();
+        $query_string = explode("=", $_SERVER["QUERY_STRING"]);
+        if($query_string[0] == "user_code"){
+            $data_orders = readOrders($query_string[1]);
+            echo json_encode($data_orders);
+        }
+        if($query_string[0] == "code"){
+            $data_orders = GetOrderById($query_string[1]);
+            echo json_encode($data_orders);
+        }
     }
-        echo json_encode($data_orders);
-
 }

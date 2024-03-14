@@ -1,5 +1,6 @@
 import "../assets/style.css"
 import { useState, useEffect } from "react"
+import NavComponent from "../components/NavComponent"
 const url = "http://localhost/routes/products.php"
 function ProductsComponent() {
     const [products, setProducts] = useState([])
@@ -70,6 +71,7 @@ function ProductsComponent() {
 
     return (
         <div>
+            <NavComponent />
             <div className="main">
                 <div className="gridArea1">
                     <div className="form">
