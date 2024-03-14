@@ -25,7 +25,7 @@ function CategoriesComponent() {
         const data = new FormData()
         data.append("name", name)
         data.append("tax", tax)
-        if(tax <= 0){
+        if(tax <= 0 || name == ""){
             return alert("Insira um valor válido!")
         }else{
             const res = await fetch(url, {

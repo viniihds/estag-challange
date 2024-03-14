@@ -32,7 +32,7 @@ function ProductsComponent() {
         data.append("amount", amount)
         data.append("price", price)
         data.append("category", category)
-        if(amount <= 0 || price <= 0 ){
+        if(amount <= 0 || price <= 0 || name == "" ){
             return alert("Insira valores válidos")
         } else{
             const res = await fetch(url, {
