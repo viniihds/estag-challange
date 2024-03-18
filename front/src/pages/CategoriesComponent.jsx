@@ -2,6 +2,7 @@ import "../assets/style.css"
 import { useState, useEffect } from "react"
 import NavComponent from "../components/NavComponent"
 import ButtonComponent from "../components/ButtonComponent"
+import CategoryItemsComponent from "../components/CategoryItemsComponent"
 const url = "http://localhost/routes/categories.php"
 function CategoriesComponent() {
     const [categories, setCategories] = useState([])
@@ -73,12 +74,7 @@ function CategoriesComponent() {
                 </div>
                 <div className="gridArea2">
                     {categories.map((category) => (
-                        <div className="divitems" key={category.code}>
-                            <div>Code: {category.code}</div>
-                            <div>Name: {category.name}</div>
-                            <div>Tax: {category.tax}%</div> 
-                            <ButtonComponent styleclass={"btnalternative"} text={"Delete"} btnFunction={deleteCategory} itemCode={category.code}/>
-                        </div>
+                        <CategoryItemsComponent categoryCode={category.code} categoryName={category.name} categoryTax={category.tax} deleteCategory={deleteCategory}/>
                     ))}
                 </div>
             </div>

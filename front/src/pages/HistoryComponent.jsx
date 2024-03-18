@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import "../assets/style.css"
 import  OrderDetails  from "../components/OrderDetails"
+import OrdersComponent from "../components/OrdersComponent"
 import NavComponent from "../components/NavComponent"
 function HistoryComponent(){
     const [orders, setOrders] = useState([])
@@ -27,12 +28,7 @@ function HistoryComponent(){
             <div className="main">
                 <div className="gridArea2" style={{border: "none"}}>
                         {orders.map((order) => (
-                            <div className="divitems" key={order.code}>
-                                <div>Code: {order.code}</div>
-                                <div>Tax: ${order.tax}</div>
-                                <div>Total: ${order.total}</div>
-                                <div><button onClick={() => setSelectedOrder(order.code)} {...window.scrollTo({top: 0, behavior:'smooth'})} className="btnalternative">Details</button></div>
-                            </div >
+                            <OrdersComponent orderCode={order.code} orderTax={order.tax} orderTotal={order.total} setSelectedOrder={setSelectedOrder}/>
                         ))}
                     </div>
                     {

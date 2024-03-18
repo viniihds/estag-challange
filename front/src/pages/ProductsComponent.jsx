@@ -2,6 +2,7 @@ import "../assets/style.css"
 import { useState, useEffect } from "react"
 import NavComponent from "../components/NavComponent"
 import ButtonComponent from "../components/ButtonComponent"
+import ProductItems from "../components/ProductItemsComponent"
 const url = "http://localhost/routes/products.php"
 function ProductsComponent() {
     const [products, setProducts] = useState([])
@@ -98,14 +99,7 @@ function ProductsComponent() {
                 </div>
                 <div className="gridArea2">
                     {products.map((product) => (
-                        <div className="divitems" key={product.code}>
-                            <div>Code: {product.code}</div>
-                            <div>Name: {product.name}</div>
-                            <div>Amount: {product.amount}</div>
-                            <div>Price: ${product.price}</div>
-                            <div>Category: {product.name_category}</div>
-                            <ButtonComponent styleclass={"btnalternative"} text={"Delete"} btnFunction={deleteProduct} itemCode={product.code}/>
-                        </div>
+                        <ProductItems productCode={product.code} productName={product.name} productAmount={product.amount} productPrice={product.price} productCategory={product.name_category} deleteProduct={deleteProduct} />
                     ))}
                 </div>
             </div>

@@ -39,7 +39,7 @@ function LoginComponent() {
         <div className="body">
             <div className="form-container">
                 <p className="titlelogin">Login</p>
-                <form className="form">
+                <form className="form" onSubmit={handleLoginUser}>
                     <div className="input-group">
                         <label htmlFor="username">Username</label>
                         <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} name="username" id="username" placeholder=""></input>
@@ -48,7 +48,7 @@ function LoginComponent() {
                         <label htmlFor="password">Password</label>
                         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} name="password" id="password" placeholder=""></input>
                     </div>
-                    <button onClick={handleLoginUser} className="sign">Log in</button>
+                    <ButtonComponent styleclass={"sign"} text={"Log in"} />
                 </form>
                 <p className="signup">Don't have an account?
                     <Link to="/register" href="#" className="">Sign up</Link>

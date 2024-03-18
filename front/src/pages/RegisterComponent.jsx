@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
+import ButtonComponent from "../components/ButtonComponent"
 const url = "http://localhost/routes/users.php"
 function RegisterComponent() {
     const [username, setUsername] = useState("")
@@ -26,7 +27,7 @@ function RegisterComponent() {
         <div className="body">
             <div className="form-container">
                 <p className="titlelogin">Register</p>
-                <form className="form">
+                <form className="form" onSubmit={handleRegisterUser} >
                     <div className="input-group">
                         <label htmlFor="username">Username</label>
                         <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} name="username" id="username" placeholder=""></input>
@@ -35,7 +36,7 @@ function RegisterComponent() {
                         <label htmlFor="password">Password</label>
                         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} name="password" id="password" placeholder=""></input>
                     </div>
-                    <button onClick={handleRegisterUser} className="sign">Sign in</button>
+                    <ButtonComponent styleclass={"sign"} text={"Sign in"} />
                 </form>
                 <p className="signup">Already have an account?
                     <Link to="/login" href="#" className=""> Log in</Link>
