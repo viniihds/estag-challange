@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom"
+import ButtonComponent from "../components/ButtonComponent";
 const urlUsers = "http://localhost/routes/users.php"
 const urlLogin = "http://localhost/routes/login.php"
 function LoginComponent() {

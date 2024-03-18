@@ -1,6 +1,7 @@
 import "../assets/style.css"
 import { useState, useEffect } from "react"
 import NavComponent from "../components/NavComponent"
+import ButtonComponent from "../components/ButtonComponent"
 const url = "http://localhost/routes/products.php"
 function ProductsComponent() {
     const [products, setProducts] = useState([])
@@ -91,9 +92,7 @@ function ProductsComponent() {
                                 <label htmlFor="tax"></label>
                                 <input id="product-price-input" name="tax" className="secondaryselect2" style={{ marginLeft: "10px" }} type="float" min={0} placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} />
                             </div>
-                            <div>
-                                <input type="submit" className="btngridArea1" value={"Add Product"} />
-                            </div>
+                            <ButtonComponent styleclass={"btngridArea1"} text="Add Product"/>
                         </form>
                     </div>
                 </div>
@@ -105,7 +104,7 @@ function ProductsComponent() {
                             <div>Amount: {product.amount}</div>
                             <div>Price: ${product.price}</div>
                             <div>Category: {product.name_category}</div>
-                            <div><button onClick={() => deleteProduct(product.code)} className="btnalternative">Delete</button></div>
+                            <ButtonComponent styleclass={"btnalternative"} text={"Delete"} btnFunction={deleteProduct} itemCode={product.code}/>
                         </div>
                     ))}
                 </div>

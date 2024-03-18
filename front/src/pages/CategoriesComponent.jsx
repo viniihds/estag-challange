@@ -1,6 +1,7 @@
 import "../assets/style.css"
 import { useState, useEffect } from "react"
 import NavComponent from "../components/NavComponent"
+import ButtonComponent from "../components/ButtonComponent"
 const url = "http://localhost/routes/categories.php"
 function CategoriesComponent() {
     const [categories, setCategories] = useState([])
@@ -50,6 +51,9 @@ function CategoriesComponent() {
             window.location.reload()
         })
     }
+    function teste(){
+        console.log('oi')
+    }
 
     return (
         <div>
@@ -65,7 +69,7 @@ function CategoriesComponent() {
                                 <input id="category-tax-input" name="tax" className="secondaryselect1" style={{ marginLeft: "10px" }} type="number" min={0} placeholder="Tax" value={tax} onChange={(e) => setTax(e.target.value)} />
                             </div>
                             <div>
-                                <input type="submit" className="btngridArea1" value={"Add Category"} />
+                                <ButtonComponent styleclass={"btngridArea1"} text="Add Category"/>
                             </div>
                         </form>
                     </div>
@@ -75,8 +79,8 @@ function CategoriesComponent() {
                         <div className="divitems" key={category.code}>
                             <div>Code: {category.code}</div>
                             <div>Name: {category.name}</div>
-                            <div>Tax: {category.tax}%</div>
-                            <div><button onClick={() => deleteCategory(category.code)} className="btnalternative">Delete</button></div>
+                            <div>Tax: {category.tax}%</div> 
+                            <ButtonComponent styleclass={"btnalternative"} text={"Delete"} btnFunction={deleteCategory} itemCode={category.code}/>
                         </div>
                     ))}
                 </div>

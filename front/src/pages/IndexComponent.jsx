@@ -1,6 +1,7 @@
 import "../assets/style.css"
 import { useState, useEffect } from "react"
 import NavComponent from "../components/NavComponent"
+import ButtonComponent from "../components/ButtonComponent"
 let urlProducts = "http://localhost/routes/products.php"
 let urlOrders = "http://localhost/routes/orders.php"
 function IndexComponent() {
@@ -136,7 +137,7 @@ function IndexComponent() {
             <NavComponent />
             <div className="main">
                 <div className="gridArea1">
-                    <form id="product-form">
+                    <form id="product-form" onSubmit={addProductToCart}>
                         <select value={product} onChange={(e) => setProduct(e.target.value)} className="mainselect" id="input-product-category" name="products">
                             <option value={0} disabled>Product</option>
                             {products.map((product) => (
@@ -152,9 +153,7 @@ function IndexComponent() {
                             <label htmlFor="tax"></label>
                             <input id="product-amount-input" value={tax} onChange={() => setTax()} name="tax" className="secondaryselect2" style={{ marginLeft: "10px" }} type="number" placeholder="Tax" disabled />
                         </div>
-                        <div>
-                            <input onClick={addProductToCart} type="submit" className="btngridArea1" value={"Add Product"} />
-                        </div>
+                        <ButtonComponent styleclass={"btngridArea1"} text="Add Product"/>
                     </form>
                 </div>
                 <div className="gridArea2">
@@ -165,7 +164,7 @@ function IndexComponent() {
                                 <div>Amount: {cart.amount}</div>
                                 <div>Tax: {cart.product.tax_category}%</div>
                                 <div>Total: ${cart.product.price * cart.amount + (cart.product.price * cart.amount * (cart.product.tax_category / 100))}</div>
-                                <div><button onClick={deleteItem} className="btnalternative">Delete</button></div>
+                                <ButtonComponent styleclass={"btnalternative"} text={"Delete"} btnFunction={deleteItem}/>
                             </div>
                             
                     ))}
