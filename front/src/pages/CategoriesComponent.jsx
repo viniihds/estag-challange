@@ -51,9 +51,6 @@ function CategoriesComponent() {
             window.location.reload()
         })
     }
-    function teste(){
-        console.log('oi')
-    }
 
     return (
         <div>
