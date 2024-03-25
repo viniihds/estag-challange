@@ -1,7 +1,8 @@
 <?php
-require_once "../index.php";
+namespace App\Services;
+use App\Conn;
 
-class UserService extends conn{
+class UserService extends Conn{
     private $username;
     private $password;
     public function __construct($username = '', $password = ''){
@@ -10,8 +11,8 @@ class UserService extends conn{
         $this->password = $password;
     }
     public function createUser(){
-        $insertProduct = $this->connection -> prepare("INSERT INTO USERS(username, password) values ('{$this->username}', '{$this->password}')");
-        $insertProduct->execute();
+        $insertUser = $this->connection -> prepare("INSERT INTO USERS(username, password) values ('{$this->username}', '{$this->password}')");
+        $insertUser->execute();
         return "user created";
     }
     public function readUsers(){

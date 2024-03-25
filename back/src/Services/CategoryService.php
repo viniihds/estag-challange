@@ -1,7 +1,7 @@
 <?php
-require_once "../index.php";
-
-class CategoryService extends conn {
+namespace App\Services;
+use App\Conn;
+class CategoryService extends Conn {
     private $name;
     private $tax;
     

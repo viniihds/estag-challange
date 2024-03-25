@@ -1,8 +1,9 @@
 <?php
-require_once "../index.php";
-require_once "../Services/ProductService.php";
+namespace App\Services;
+use App\Conn;
+use App\Services\ProductService;
 
-class OrderItemService extends conn{
+class OrderItemService extends Conn{
     private $productservice;
     public function __construct(){
         $this->productservice = new ProductService();

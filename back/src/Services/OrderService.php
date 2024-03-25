@@ -1,8 +1,9 @@
 <?php
-require_once "../index.php";
-require_once "../Services/OrderItemService.php";
+namespace App\Services;
+use App\Conn;
+use App\Services\OrderItemService;
 
-class OrderService extends conn{
+class OrderService extends Conn{
     private $user_code;
     private $order_items;
     private $item_service;

@@ -1,7 +1,8 @@
 <?php
-require_once "../index.php";
+namespace App\Services;
+use App\Conn;
 
-class ProductService extends conn{
+class ProductService extends Conn{
     private $name;
     private $amount;
     private $price;

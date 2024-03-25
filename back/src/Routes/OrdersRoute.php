@@ -1,9 +1,10 @@
 <?php
+namespace App\Routes;
+use App\Services\OrderService;
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, DELETE');
 header("Access-Control-Allow-Headers: X-Requested-With");
 
-require_once '../Services/OrderService.php';
 
 class OrdersRoute {
     private $service;
@@ -35,6 +36,3 @@ class OrdersRoute {
         }
     }
 }
-
-$orders = new OrdersRoute();
-$orders->runServerMethod();

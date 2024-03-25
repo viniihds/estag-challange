@@ -1,9 +1,10 @@
 <?php
+namespace App\Routes;
+use App\Services\CategoryService;
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, DELETE');
 header("Access-Control-Allow-Headers: X-Requested-With, Content-Type");
 
-require_once "../Services/CategoryService.php";
 
 class CategoriesRoute {
     private $service;
@@ -34,6 +35,3 @@ class CategoriesRoute {
     }
 
 }
-
-$categories = new CategoriesRoute();
-$categories->runServerMethod();

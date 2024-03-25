@@ -18,8 +18,11 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./back/src:/var/www/html
+      - ./back/src:/var/www/html/src
+      - ./back/public:/var/www/html/public
+      - ./back/composer.json:/var/www/html/composer.json
       - ./back/logs:/var/log/apache2
+      - ./back/virtualhost.conf:/etc/apache2/sites-enabled/000-default.conf
     links:
       - db
   pgadmin:
@@ -44,4 +47,3 @@ services:
     volumes:
       - ./front:/app
     command: 'npm run dev'
-

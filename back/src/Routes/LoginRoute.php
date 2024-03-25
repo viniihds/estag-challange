@@ -1,9 +1,10 @@
 <?php
+namespace App\Routes;
+use App\Services\UserService;
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, DELETE');
 header("Access-Control-Allow-Headers: X-Requested-With");
 
-require_once "../Services/UserService.php";
 
 class LoginRoute{
     private $service;
@@ -23,6 +24,3 @@ class LoginRoute{
         }
     }
 }
-
-$login = new LoginRoute();
-$login->runServerMethod();
